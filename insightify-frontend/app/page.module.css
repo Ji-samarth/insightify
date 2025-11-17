@@ -1,0 +1,191 @@
+/* app/page.module.css — minimal & elegant */
+
+.page {
+  max-width: 880px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #0f172a;
+  line-height: 1.6;
+}
+
+/* center loader */
+.center {
+  height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loader {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 4px solid rgba(15,23,42,0.06);
+  border-top-color: #111827;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+  margin-bottom: 1.4rem;
+  padding: 1.2rem;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border-radius: 12px;
+  border: 1px solid rgba(15,23,42,0.03);
+  box-shadow: 0 8px 28px rgba(2,6,23,0.04);
+}
+.kicker {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.title {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 700;
+  color: #0b1220;
+}
+.subtitle {
+  margin-top: 6px;
+  color: #475569;
+  font-size: 14px;
+}
+
+/* chips */
+.chips {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.chip {
+  background: linear-gradient(180deg, #fff, #fbfdff);
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,42,0.03);
+  min-width: 110px;
+  text-align: center;
+}
+.chipLabel {
+  font-size: 12px;
+  color: #6b7280;
+}
+.chipValue {
+  font-size: 16px;
+  font-weight: 800;
+  margin-top: 4px;
+  color: #111827;
+}
+
+/* main layout */
+.main {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 16px;
+  align-items: start;
+}
+
+/* recent list */
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.sectionTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+.link {
+  color: #6b7280;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+}
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.03);
+}
+.name {
+  font-weight: 700;
+}
+.meta {
+  color: #6b7280;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.amount {
+  font-weight: 800;
+}
+
+/* empty state */
+.empty {
+  text-align: center;
+  padding: 18px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  border: 1px solid rgba(15,23,42,0.03);
+}
+.emptyText {
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+.addBtn {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: linear-gradient(90deg,#8b5cf6,#06b6d4);
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+/* side cards */
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.card {
+  padding: 12px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.03);
+  box-shadow: 0 8px 20px rgba(2,6,23,0.04);
+}
+.cardTitle {
+  margin: 0 0 8px 0;
+  font-weight: 800;
+  font-size: 14px;
+}
+.cardText {
+  margin: 0;
+  color: #475569;
+  font-size: 14px;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .page { margin: 1.2rem auto; }
+  .main { grid-template-columns: 1fr; }
+  .chips { margin-top: 8px; justify-content: flex-start; }
+}

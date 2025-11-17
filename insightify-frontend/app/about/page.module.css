@@ -1,0 +1,174 @@
+/* app/about/page.module.css
+   Scopped, CSS-Modules-safe version of the modern About page style
+   All selectors are local (prefixed with .wrapper) — no pure global selectors.
+*/
+
+.wrapper {
+  max-width: 900px;
+  margin: 3.2rem auto;
+  padding: 2rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,251,0.95));
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+  color: #0f172a;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.wrapper .header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 1.6rem;
+}
+.wrapper .title {
+  font-size: 28px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0b1220;
+}
+.wrapper .subtitle {
+  margin: 0;
+  color: #475569;
+  font-size: 15px;
+  max-width: 70ch;
+}
+
+/* Section */
+.wrapper .section {
+  margin-top: 1.4rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(15,23,42,0.04);
+}
+.wrapper .sectionTitle {
+  font-size: 16px;
+  margin: 0 0 8px 0;
+  color: #0b1220;
+  font-weight: 700;
+}
+.wrapper .lead {
+  margin: 0 0 10px 0;
+  color: #374151;
+  font-size: 15px;
+}
+
+/* Features grid (simple cards but plain) */
+.wrapper .features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+.wrapper .feature {
+  background: rgba(15,23,42,0.02);
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,42,0.02);
+}
+.wrapper .feature h3 {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+.wrapper .feature p {
+  margin: 0;
+  color: #475569;
+  font-size: 14px;
+}
+
+/* CTA row - simple, understated */
+.wrapper .ctaRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.wrapper .primaryBtn {
+  background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 4px 14px rgba(139,92,246,0.25);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.wrapper .primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139,92,246,0.3);
+}
+
+
+.wrapper .primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(2,6,23,0.06);
+}
+.wrapper .secondaryBtn {
+  background: transparent;
+  color: #475569;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: none;
+  font-weight: 700;
+}
+
+/* Footer */
+.wrapper .footer {
+  margin-top: 1.6rem;
+  padding-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #6b7280;
+  border-top: 1px solid rgba(15,23,42,0.03);
+  gap: 12px;
+}
+.wrapper .footerNote {
+  font-size: 13px;
+}
+.wrapper .social a {
+  margin-left: 12px;
+  color: #374151;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Kicker */
+.wrapper .kicker {
+  display: inline-block;
+  font-size: 13px;
+  color: #475569;
+  background: rgba(15,23,42,0.03);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* Typography tweaks for wrapper content */
+.wrapper p,
+.wrapper li {
+  color: #374151;
+  font-size: 15px;
+}
+
+/* Responsive */
+@media (max-width: 780px) {
+  .wrapper {
+    margin: 1.25rem;
+    padding: 1.1rem;
+  }
+  .wrapper .title {
+    font-size: 22px;
+  }
+  .wrapper .features {
+    grid-template-columns: 1fr;
+  }
+  .wrapper .header { gap: 6px; }
+}
