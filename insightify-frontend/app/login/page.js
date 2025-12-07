@@ -18,7 +18,8 @@ export default function LoginPage() {
 
     try {
       // Check if API URL is configured
-      if (!apiBase || apiBase === "http://localhost:4000") {
+      // Check if API URL is configured (removed restrictive localhost check)
+      if (!apiBase) {
         throw new Error("API server not configured. Please contact support.");
       }
 
