@@ -2,16 +2,16 @@
   "name": "insightify-backend",
   "version": "1.0.0",
   "main": "index.js",
-"scripts": {
-  "dev": "nodemon index.js",
-  "start": "node index.js",
-  "prisma:generate": "prisma generate",
-  "prisma:migrate": "prisma migrate dev --name init"
-},
-"devDependencies": {
-  "prisma": "^5.0.0",
-  "nodemon": "^2.0.0"
-},
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.0",
+    "prisma": "^5.0.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -22,6 +22,8 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^7.0.0",
+    "mongoose": "^9.0.0"
   }
 }
