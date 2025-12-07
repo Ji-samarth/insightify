@@ -30,9 +30,19 @@ export default function HomePage() {
           router.replace("/login");
           return;
         }
-        const data = await res.json();
+        
+        const text = await res.text();
+        let data = null;
+        try {
+          data = text ? JSON.parse(text) : null;
+        } catch (parseErr) {
+          console.error("Failed to parse response:", parseErr);
+          router.replace("/login");
+          return;
+        }
+        
         if (!mounted) return;
-        setUser(data.user || data);
+        setUser(data?.user || data);
 
         // optional: try to fetch recent expenses; ignore errors
         try {
@@ -40,7 +50,14 @@ export default function HomePage() {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (r.ok) {
-            const arr = await r.json();
+            const expText = await r.text();
+            let arr = [];
+            try {
+              arr = expText ? JSON.parse(expText) : [];
+            } catch (parseErr) {
+              console.error("Failed to parse expenses:", parseErr);
+              arr = [];
+            }
             if (mounted) setRecent(Array.isArray(arr) ? arr.slice(0, 6) : []);
           } else {
             // no endpoint — keep recent empty

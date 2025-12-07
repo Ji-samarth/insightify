@@ -35,8 +35,22 @@ export default function DashboardPage() {
           return;
         }
 
-        const data = await res.json();
-        if (mounted) setUser(data.user || data);
+        if (!res.ok) {
+          if (mounted) router.replace("/login");
+          return;
+        }
+
+        const text = await res.text();
+        let data = null;
+        try {
+          data = text ? JSON.parse(text) : null;
+        } catch (parseErr) {
+          console.error("Failed to parse response:", parseErr);
+          if (mounted) router.replace("/login");
+          return;
+        }
+
+        if (mounted) setUser(data?.user || data);
 
         // attempt to fetch expenses; graceful fallback if endpoint missing
         try {
@@ -44,7 +58,14 @@ export default function DashboardPage() {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (expRes.ok) {
-            const expData = await expRes.json();
+            const expText = await expRes.text();
+            let expData = null;
+            try {
+              expData = expText ? JSON.parse(expText) : [];
+            } catch (parseErr) {
+              console.error("Failed to parse expenses:", parseErr);
+              expData = [];
+            }
             if (!mounted) return;
 
             const total = expData.reduce((s, e) => s + Number(e.amount || 0), 0);

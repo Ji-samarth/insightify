@@ -21,16 +21,22 @@ export default function LoginPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
+      }).catch((fetchErr) => {
+        // Handle network errors (CORS, connection refused, etc.)
+        throw new Error("Unable to connect to server. Please check your connection.");
       });
 
       const status = res.status;
       const text = await res.text(); // read raw body ONCE
 
       let data = null;
-      try {
-        data = text ? JSON.parse(text) : null;
-      } catch (parseErr) {
-        console.error("Non-JSON response from /auth/login:", { status, text });
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch (parseErr) {
+          console.error("Non-JSON response from /auth/login:", { status, text });
+          throw new Error("Invalid response from server. Please try again.");
+        }
       }
 
       if (!res.ok) {
