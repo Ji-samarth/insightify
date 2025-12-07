@@ -1,0 +1,51 @@
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input {
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: #334155;
+    outline: none;
+    min-width: 120px;
+}
+
+.input:focus {
+    border-color: #94a3b8;
+}
+
+.to {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.clearBtn {
+    margin-left: auto;
+    padding: 6px 12px;
+    background: none;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    color: #ef4444;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.clearBtn:hover {
+    background: #fee2e2;
+    border-color: #fecaca;
+}
