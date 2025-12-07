@@ -34,15 +34,105 @@ async function verifyToken(req, res, next) {
 }
 
 // Get all expenses for the authenticated user
+// Get all expenses with filtering, sorting, and pagination
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const expenses = await prisma.expense.findMany({
-      where: { userId: req.userId },
-      orderBy: { incurredAt: "desc" },
+    const { category, startDate, endDate, minAmount, maxAmount, sortBy, sortOrder, page, limit } = req.query;
+
+    const where = { userId: req.userId };
+
+    if (category) where.category = category;
+
+    if (startDate || endDate) {
+      where.incurredAt = {};
+      if (startDate) where.incurredAt.gte = new Date(startDate);
+      if (endDate) where.incurredAt.lte = new Date(endDate);
+    }
+
+    if (minAmount || maxAmount) {
+      where.amount = {};
+      if (minAmount) where.amount.gte = Number(minAmount);
+      if (maxAmount) where.amount.lte = Number(maxAmount);
+    }
+
+    const orderBy = {};
+    if (sortBy) {
+      orderBy[sortBy] = sortOrder === "asc" ? "asc" : "desc";
+    } else {
+      orderBy.incurredAt = "desc";
+    }
+
+    const pageNum = Number(page) || 1;
+    const limitNum = Number(limit) || 10;
+    const skip = (pageNum - 1) * limitNum;
+
+    const [expenses, total] = await Promise.all([
+      prisma.expense.findMany({
+        where,
+        orderBy,
+        skip,
+        take: limitNum,
+      }),
+      prisma.expense.count({ where }),
+    ]);
+
+    res.json({
+      data: expenses,
+      pagination: {
+        total,
+        page: pageNum,
+        limit: limitNum,
+        totalPages: Math.ceil(total / limitNum),
+      },
     });
-    res.json(expenses);
   } catch (err) {
     console.error("Get expenses error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Update an expense
+router.put("/:id", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, amount, category, incurredAt } = req.body;
+
+    const expense = await prisma.expense.findUnique({ where: { id } });
+    if (!expense || expense.userId !== req.userId) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+
+    const updated = await prisma.expense.update({
+      where: { id },
+      data: {
+        title,
+        amount: amount !== undefined ? Number(amount) : undefined,
+        category,
+        incurredAt: incurredAt ? new Date(incurredAt) : undefined,
+      },
+    });
+
+    res.json(updated);
+  } catch (err) {
+    console.error("Update expense error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Delete an expense
+router.delete("/:id", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const expense = await prisma.expense.findUnique({ where: { id } });
+    if (!expense || expense.userId !== req.userId) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+
+    await prisma.expense.delete({ where: { id } });
+    res.json({ message: "Expense deleted" });
+  } catch (err) {
+    console.error("Delete expense error:", err);
     res.status(500).json({ error: "Server error" });
   }
 });
@@ -51,7 +141,7 @@ router.get("/", verifyToken, async (req, res) => {
 router.post("/", verifyToken, async (req, res) => {
   try {
     const { title, amount, category, incurredAt } = req.body;
-    
+
     if (!title || amount === undefined) {
       return res.status(400).json({ error: "Title and amount are required" });
     }

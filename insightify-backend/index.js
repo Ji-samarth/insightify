@@ -27,6 +27,8 @@ app.use(
 
 app.use("/auth", authRouter);
 app.use("/expenses", expensesRouter);
+app.use("/incomes", require("./routes/incomes"));
+app.use("/analytics", require("./routes/analytics"));
 app.get("/", (req, res) => res.json({ ok: true }));
 
 const PORT = process.env.PORT || 4000;
