@@ -1,6 +1,7 @@
 // components/TransactionForm.js
 "use client";
 import { useState } from "react";
+import { getToken } from "../utils/auth";
 import styles from "./TransactionForm.module.css";
 import { X } from "lucide-react";
 
@@ -21,7 +22,7 @@ export default function TransactionForm({ type, onClose, onSuccess, initialData 
         setLoading(true);
         setError(null);
 
-        const token = localStorage.getItem("token"); // Assuming simple storage for now based on dashboard code
+        const token = getToken(); // Use utility to get correct token key
         const endpoint = type === "expense" ? `${apiBase}/expenses` : `${apiBase}/incomes`;
         const method = initialData ? "PUT" : "POST";
         const url = initialData ? `${endpoint}/${initialData.id}` : endpoint;
