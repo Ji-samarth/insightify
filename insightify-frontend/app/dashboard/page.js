@@ -114,7 +114,7 @@ export default function DashboardPage() {
         </section>
 
         {/* Charts */}
-        <Charts monthlyData={metrics?.charts?.monthly} categoryData={metrics?.charts?.categories} />
+        {/* <Charts monthlyData={metrics?.charts?.monthly} categoryData={metrics?.charts?.categories} /> */}
 
         {/* Transactions Tab & List */}
         <div className={styles.tabs}>
