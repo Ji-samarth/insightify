@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 
 const authRouter = require("./routes/auth");
+const expensesRouter = require("./routes/expenses");
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(
 );
 
 app.use("/auth", authRouter);
+app.use("/expenses", expensesRouter);
 app.get("/", (req, res) => res.json({ ok: true }));
 
 const PORT = process.env.PORT || 4000;

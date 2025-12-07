@@ -5,14 +5,17 @@ const prisma = new PrismaClient();
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { connectToDatabase } = require("../utils/db");
-const User = require("../models/User");
 
 const router = express.Router();
 
 const SALT_ROUNDS = 10;
 const JWT_SECRET = process.env.JWT_SECRET;
 const TOKEN_EXPIRY = process.env.TOKEN_EXPIRY || "7d";
+
+if (!JWT_SECRET) {
+  console.error("ERROR: JWT_SECRET environment variable is not set!");
+  process.exit(1);
+}
 
 function signToken(payload) {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: TOKEN_EXPIRY });
