@@ -1,12 +1,11 @@
-/* app/page.module.css — Premium Dark Theme */
+/* app/page.module.css — minimal & elegant */
 
 .page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
-  min-height: calc(100vh - 68px);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: #ffffff;
+  max-width: 880px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #0f172a;
   line-height: 1.6;
 }
 
@@ -17,95 +16,70 @@
   align-items: center;
   justify-content: center;
 }
-
 .loader {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #ffffff;
+  border: 4px solid rgba(15,23,42,0.06);
+  border-top-color: #111827;
   animation: spin 1s linear infinite;
 }
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* header */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: start;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.03);
+  gap: 12px;
+  margin-bottom: 1.4rem;
+  padding: 1.2rem;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(15,23,42,0.03);
+  box-shadow: 0 8px 28px rgba(2,6,23,0.04);
 }
-
 .kicker {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: #6b7280;
+  font-weight: 700;
+  margin-bottom: 6px;
 }
-
 .title {
-  font-size: 28px;
+  font-size: 22px;
   margin: 0;
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: #0b1220;
 }
-
 .subtitle {
-  margin-top: 0.5rem;
-  color: rgba(255, 255, 255, 0.6);
+  margin-top: 6px;
+  color: #475569;
   font-size: 14px;
 }
 
 /* chips */
 .chips {
   display: flex;
-  gap: 1rem;
+  gap: 10px;
   align-items: center;
-  flex-wrap: wrap;
 }
-
 .chip {
-  background: rgba(255, 255, 255, 0.03);
-  padding: 1rem 1.25rem;
+  background: linear-gradient(180deg, #fff, #fbfdff);
+  padding: 10px 12px;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  min-width: 120px;
+  border: 1px solid rgba(15,23,42,0.03);
+  min-width: 110px;
   text-align: center;
-  transition: all 0.2s ease;
 }
-
-.chip:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
 .chipLabel {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: #6b7280;
 }
-
 .chipValue {
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 0.5rem;
-  color: #ffffff;
-  letter-spacing: -0.01em;
+  font-size: 16px;
+  font-weight: 800;
+  margin-top: 4px;
+  color: #111827;
 }
 
 /* main layout */
@@ -121,137 +95,92 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 }
-
 .sectionTitle {
   margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
 }
-
 .link {
-  color: rgba(255, 255, 255, 0.7);
+  color: #6b7280;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s ease;
+  font-weight: 700;
+  font-size: 13px;
 }
-
-.link:hover {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
 .list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px;
 }
-
 .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 10px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid transparent;
-  transition: all 0.2s ease;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.03);
 }
-
-.row:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
-  transform: translateX(4px);
-}
-
 .name {
-  font-weight: 600;
-  color: #ffffff;
-  font-size: 15px;
-}
-
-.meta {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 13px;
-  margin-top: 0.25rem;
-}
-
-.amount {
   font-weight: 700;
-  color: #ffffff;
-  font-size: 15px;
+}
+.meta {
+  color: #6b7280;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.amount {
+  font-weight: 800;
 }
 
 /* empty state */
 .empty {
   text-align: center;
-  padding: 2.5rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 18px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  border: 1px solid rgba(15,23,42,0.03);
 }
-
 .emptyText {
-  color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 1rem;
-  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 12px;
 }
-
 .addBtn {
   display: inline-block;
-  padding: 0.75rem 1.25rem;
-  border-radius: 8px;
-  background: #ffffff;
-  color: #000000;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: linear-gradient(90deg,#8b5cf6,#06b6d4);
+  color: white;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-.addBtn:hover {
-  background: rgba(255, 255, 255, 0.9);
-  transform: translateY(-1px);
+  font-weight: 800;
 }
 
 /* side cards */
 .side {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 12px;
 }
-
 .card {
-  padding: 1.5rem;
+  padding: 12px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.2s ease;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.03);
+  box-shadow: 0 8px 20px rgba(2,6,23,0.04);
 }
-
-.card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
 .cardTitle {
-  margin: 0 0 0.75rem 0;
-  font-weight: 600;
-  font-size: 15px;
-  color: #ffffff;
+  margin: 0 0 8px 0;
+  font-weight: 800;
+  font-size: 14px;
 }
-
 .cardText {
   margin: 0;
-  color: rgba(255, 255, 255, 0.6);
+  color: #475569;
   font-size: 14px;
-  line-height: 1.6;
 }
 
 /* responsive */

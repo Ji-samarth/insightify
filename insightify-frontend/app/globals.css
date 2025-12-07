@@ -1,47 +1,10 @@
-/* app/globals.css - Premium Dark Theme */
+/* app/globals.css */
 html, body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: #000000;
-  color: #ffffff;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
-
-* {
-  box-sizing: border-box;
-}
-
-a {
-  color: #ffffff;
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-a:hover {
-  opacity: 0.8;
-}
-
-input, textarea, select {
-  font-family: inherit;
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-button {
-  font-family: inherit;
-  transition: all 0.2s ease;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
+a { color: blue; }
+input { padding: 8px; width: 100%; box-sizing: border-box; }
+button { padding: 8px 12px; cursor: pointer; }
+.container { max-width: 900px; margin: 2rem auto; padding: 1rem; }
