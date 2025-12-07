@@ -12,23 +12,32 @@ const JWT_SECRET = process.env.JWT_SECRET;
 async function verifyToken(req, res, next) {
   try {
     const auth = req.headers["authorization"];
-    if (!auth) return res.status(401).json({ error: "Missing Authorization header" });
+    console.log("[Auth] Header:", auth); // LOGGING ADDED
+
+    if (!auth) {
+      console.log("[Auth] Missing header");
+      return res.status(401).json({ error: "Missing Authorization header" });
+    }
 
     const parts = auth.split(" ");
-    if (parts.length !== 2 || parts[0] !== "Bearer")
+    if (parts.length !== 2 || parts[0] !== "Bearer") {
+      console.log("[Auth] Malformed token");
       return res.status(401).json({ error: "Malformed token" });
+    }
 
     const token = parts[1];
     let payload;
     try {
       payload = jwt.verify(token, JWT_SECRET);
     } catch (err) {
+      console.log("[Auth] Verify failed:", err.message);
       return res.status(401).json({ error: "Invalid token" });
     }
 
     req.userId = payload.id;
     next();
   } catch (err) {
+    console.error("[Auth] Unexpected error:", err);
     return res.status(401).json({ error: "Authentication failed" });
   }
 }
