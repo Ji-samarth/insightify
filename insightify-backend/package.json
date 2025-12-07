@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
+    "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev --name init"
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:deploy": "prisma migrate deploy"
   },
   "devDependencies": {
     "nodemon": "^2.0.0",
