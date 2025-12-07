@@ -10,7 +10,7 @@ export default function DashboardPage() {
   const [user, setUser] = useState(null);
   const [metrics, setMetrics] = useState({ total: 0, monthly: 0, categories: 0 });
   const [recent, setRecent] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // <-- add loading state
 
   const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
 
@@ -22,6 +22,7 @@ export default function DashboardPage() {
     }
 
     let mounted = true;
+
     (async () => {
       try {
         const res = await fetch(`${apiBase}/auth/me`, {
@@ -50,28 +51,33 @@ export default function DashboardPage() {
             const now = new Date();
             const monthly = expData
               .filter((e) => {
-                const d = new Date(e.incurred_at || e.createdAt || e.created_at || Date.now());
+                const d = new Date(e.incurredAt || e.incurred_at || e.createdAt || e.created_at || Date.now());
                 return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
               })
               .reduce((s, e) => s + Number(e.amount || 0), 0);
             const categories = new Set(expData.map((e) => e.category || "Uncategorized")).size;
 
-            setMetrics({ total, monthly, categories });
-            setRecent(expData.slice(0, 8));
+            if (mounted) {
+              setMetrics({ total, monthly, categories });
+              setRecent(expData.slice(0, 8));
+            }
           } else {
-            // no expenses endpoint — defaults
+            if (mounted) {
+              setMetrics({ total: 0, monthly: 0, categories: 0 });
+              setRecent([]);
+            }
+          }
+        } catch (err) {
+          if (mounted) {
             setMetrics({ total: 0, monthly: 0, categories: 0 });
             setRecent([]);
           }
-        } catch (err) {
-          setMetrics({ total: 0, monthly: 0, categories: 0 });
-          setRecent([]);
         }
       } catch (err) {
         console.error(err);
         if (mounted) router.replace("/login");
       } finally {
-        if (mounted) setLoading(false);
+        if (mounted) setLoading(false); // <-- safe now
       }
     })();
 
@@ -85,6 +91,26 @@ export default function DashboardPage() {
     clearToken();
     router.push("/login");
   };
+
+  if (loading) {
+    return (
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <div className={styles.brandRow}>
+            <div className={styles.logo}>I</div>
+            <div>
+              <div className={styles.brandTitle}>Insightify</div>
+              <div className={styles.brandSub}>Personal finance — calm + simple</div>
+            </div>
+          </div>
+        </header>
+
+        <main className={styles.container}>
+          <div style={{ padding: 24, textAlign: "center", color: "#475569" }}>Loading…</div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.page}>
@@ -137,7 +163,7 @@ export default function DashboardPage() {
                     <div key={t.id || JSON.stringify(t)} className={styles.row}>
                       <div className={styles.rowLeft}>
                         <div className={styles.txTitle}>{t.title || t.name || "Expense"}</div>
-                        <div className={styles.txMeta}>{t.category || "Uncategorized"} • {new Date(t.incurred_at || t.createdAt || t.created_at || Date.now()).toLocaleDateString()}</div>
+                        <div className={styles.txMeta}>{t.category || "Uncategorized"} • {new Date(t.incurredAt || t.incurred_at || t.createdAt || t.created_at || Date.now()).toLocaleDateString()}</div>
                       </div>
                       <div className={styles.rowRight}>
                         <div className={styles.txAmount}>₹ {Number(t.amount || 0).toLocaleString()}</div>

@@ -9,31 +9,28 @@ import styles from "./navbar.module.css";
 export default function NavBar() {
   const router = useRouter();
 
-  // Initialize from storage (lazy) — avoids calling setState in an effect synchronously.
-  const [token, setToken] = useState(() => {
-    if (typeof window === "undefined") return null;
-    return getToken();
-  });
+  // Start with null so server and client initial render match.
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
-    // Listen for storage events from other tabs/windows
+    Promise.resolve().then(() => {
+      setToken(getToken());
+    });
+
     const onStorage = (evt) => {
-      // Only respond to our token key changes
       if (evt.key === "insightify_token") {
         setToken(getToken());
       }
     };
 
     window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
 
-    return () => {
-      window.removeEventListener("storage", onStorage);
-    };
-  }, []); // run once on mount
 
   const doLogout = () => {
     clearToken();
-    setToken(null); // immediately update navbar in same tab
+    setToken(null);
     router.push("/login");
   };
 
@@ -44,6 +41,7 @@ export default function NavBar() {
           <div className={styles.logo}>I</div>
           <span className={styles.brandText}>Insightify</span>
         </Link>
+
         <ul className={styles.links}>
           <li><Link href="/">Home</Link></li>
           <li><Link href="/dashboard">Dashboard</Link></li>
@@ -54,12 +52,12 @@ export default function NavBar() {
       <div className={styles.right}>
         {!token ? (
           <>
-            <Link href="/login"><button className={styles.btn}>Login</button></Link>
-            <Link href="/signup"><button className={`${styles.btn} ${styles.secondary}`}>Signup</button></Link>
+            <Link href="/login" className={styles.btn}>Login</Link>
+            <Link href="/signup" className={`${styles.btn} ${styles.secondary}`}>Signup</Link>
           </>
         ) : (
           <>
-            <Link href="/"><button className={styles.btnAlt}>Profile</button></Link>
+            <Link href="/" className={styles.btnAlt}>Profile</Link>
             <button onClick={doLogout} className={styles.btn}>Logout</button>
           </>
         )}

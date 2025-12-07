@@ -8,24 +8,45 @@ export default function LoginPage() {
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
+  const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
   const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const submit = async (e) => {
     e.preventDefault();
     setError("");
+
     try {
       const res = await fetch(`${apiBase}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Login failed");
+
+      const status = res.status;
+      const text = await res.text(); // read raw body ONCE
+
+      let data = null;
+      try {
+        data = text ? JSON.parse(text) : null;
+      } catch (parseErr) {
+        console.error("Non-JSON response from /auth/login:", { status, text });
+      }
+
+      if (!res.ok) {
+        const msg = (data && data.error) || `Login failed (status ${status})`;
+        throw new Error(msg);
+      }
+
+      if (!data || !data.token) {
+        console.error("Login: missing token in response:", data);
+        throw new Error("Login failed: invalid server response");
+      }
+
       saveToken(data.token);
       router.push("/dashboard");
     } catch (err) {
+      console.error("Login error:", err);
       setError(err.message || "Login error");
     }
   };
@@ -35,8 +56,8 @@ export default function LoginPage() {
       <h2 className={styles.title}>Login</h2>
 
       <form className={styles.form} onSubmit={submit}>
-        <input name="email" className={styles.input} placeholder="Email" onChange={update} />
-        <input name="password" type="password" className={styles.input} placeholder="Password" onChange={update} />
+        <input name="email" className={styles.input} placeholder="Email" value={form.email} onChange={update} />
+        <input name="password" type="password" className={styles.input} placeholder="Password" value={form.password} onChange={update} />
         <button className={styles.button} type="submit">Login</button>
       </form>
 
