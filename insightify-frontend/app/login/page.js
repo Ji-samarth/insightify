@@ -17,13 +17,19 @@ export default function LoginPage() {
     setError("");
 
     try {
+      // Check if API URL is configured
+      if (!apiBase || apiBase === "http://localhost:4000") {
+        throw new Error("API server not configured. Please contact support.");
+      }
+
       const res = await fetch(`${apiBase}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       }).catch((fetchErr) => {
         // Handle network errors (CORS, connection refused, etc.)
-        throw new Error("Unable to connect to server. Please check your connection.");
+        console.error("Fetch error:", fetchErr);
+        throw new Error(`Unable to connect to server at ${apiBase}. Please check your connection and ensure the backend is deployed.`);
       });
 
       const status = res.status;
